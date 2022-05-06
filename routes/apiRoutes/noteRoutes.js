@@ -1,10 +1,14 @@
 const router = require('express').Router();
-const express = require('express');
-const path = require('path')
-const fs = require("fs");
+const path = require('path');
 const notes = require('../../db/db.json');
 
+router.get("/notes", function (req, res) {
+    res.sendFile(path.join(__dirname, "../../public/notes.html"));
+});
 
+router.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "../../public/index.html"));
+  });
 
 router.get("/notes", (req, res) => {
     res.json(notes);
@@ -24,36 +28,5 @@ router.post('/notes', function  (req, res) {
         .then((notes) => res.json(notes))
         .catch(err => res.status(500).json(err))
 });
-
-
-
-// router.get("/api/notes", function (req, res) {
-//     fs.readFile("db/db.json", "utf-8", function (err, data) {
-//       if (err) {
-//         console.log(err);
-//         return;
-//       }
-//       res.json({username: 'oops'});
-//     });
-//   });
-
-//   router.post("/api/notes", (req, res) => {
-//     const createNote = {
-//       title: req.body.title,
-//       text: req.body.text,
-//       id: id,
-//     };
-//     console.log(typeof notes);
-//     notes.push(createNote);
-//     const jsonNote = JSON.stringify(notes);
-//     res.json(notes);
-//     fs.writeFile("db/db.json", jsonNote, (err) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         console.log("Note was saved to db.json");
-//       }
-//     });
-//   });
 
   module.exports = router;
