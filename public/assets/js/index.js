@@ -28,10 +28,12 @@ let activeNote = {};
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
-    headers: {
+    header: {
       'Content-Type': 'application/json'
-    }
+    },
   });
+  
+  
 
 const saveNote = note =>
   fetch('/api/notes', {
